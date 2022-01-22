@@ -1,4 +1,7 @@
-pragma solidity ^0.4.24;
+
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity ^0.8.0;
 
 contract Migrations {
   address public owner;
@@ -8,7 +11,7 @@ contract Migrations {
     if (msg.sender == owner) _;
   }
 
-  constructor() public {
+  constructor() {
     owner = msg.sender;
   }
 

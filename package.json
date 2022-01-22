@@ -1,5 +1,5 @@
 {
-  "name": "tutorialtoken",
+  "name": "robot_token",
   "version": "1.0.0",
   "description": "",
   "main": "truffle.js",
@@ -10,9 +10,12 @@
     "dev": "lite-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Miguel Debono",
+  "license": "MIT",
   "devDependencies": {
     "lite-server": "^2.3.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.2"
   }
 }
