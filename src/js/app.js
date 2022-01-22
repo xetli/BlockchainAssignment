@@ -3,7 +3,9 @@ App = {
   contracts: {},
 
   init: function() {
+    window.ethereum.enable();
     return App.initWeb3();
+    
   },
 
   initWeb3: function() {
@@ -21,13 +23,14 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON('TutorialToken.json', function(data) {
+    $.getJSON('Robot_Token.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract.
-      var TutorialTokenArtifact = data;
-      App.contracts.TutorialToken = TruffleContract(TutorialTokenArtifact);
+      var Robot_TokenArtifact = data;
+      App.contracts.Robot_Token = TruffleContract(Robot_TokenArtifact);
+      
 
       // Set the provider for our contract.
-      App.contracts.TutorialToken.setProvider(App.web3Provider);
+      App.contracts.Robot_Token.setProvider(App.web3Provider);
 
       // Use our contract to retieve and mark the adopted pets.
       return App.getBalances();
@@ -43,12 +46,12 @@ App = {
   handleTransfer: function(event) {
     event.preventDefault();
 
-    var amount = parseInt($('#TTTransferAmount').val());
-    var toAddress = $('#TTTransferAddress').val();
+    var amount = parseInt($('#RBTransferAmount').val());
+    var toAddress = $('#RBTransferAddress').val();
 
     console.log('Transfer ' + amount + ' TT to ' + toAddress);
 
-    var tutorialTokenInstance;
+    var robotTokenInstance;
 
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -57,10 +60,10 @@ App = {
 
       var account = accounts[0];
 
-      App.contracts.TutorialToken.deployed().then(function(instance) {
-        tutorialTokenInstance = instance;
+      App.contracts.Robot_Token.deployed().then(function(instance) {
+        robotTokenInstance = instance;
 
-        return tutorialTokenInstance.transfer(toAddress, amount, {from: account, gas: 100000});
+        return robotTokenInstance.transfer(toAddress, amount, {from: account, gas: 100000});
       }).then(function(result) {
         alert('Transfer Successful!');
         return App.getBalances();
@@ -73,7 +76,7 @@ App = {
   getBalances: function() {
     console.log('Getting balances...');
 
-    var tutorialTokenInstance;
+    var robotTokenInstance;
 
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -82,14 +85,15 @@ App = {
 
       var account = accounts[0];
 
-      App.contracts.TutorialToken.deployed().then(function(instance) {
-        tutorialTokenInstance = instance;
+      App.contracts.Robot_Token.deployed().then(function(instance) {
+        robotTokenInstance = instance;
+        
 
-        return tutorialTokenInstance.balanceOf(account);
+        return robotTokenInstance.balanceOf(account);
       }).then(function(result) {
         balance = result.c[0];
 
-        $('#TTBalance').text(balance);
+        $('#RBTBalance').text(balance);
       }).catch(function(err) {
         console.log(err.message);
       });
